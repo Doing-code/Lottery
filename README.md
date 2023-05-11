@@ -19,3 +19,27 @@ DDD 分层架构的优点是能够将系统按照业务领域进行划分，使�
 
 ![](img/DDD+RPC_分层模块.png)
 
+lottery-application，应用层，引用：domain
+
+lottery-common，通用包，引用：无
+
+lottery-domain，领域层，引用：infrastructure
+
+lottery-infrastructure，基础层，引用：无
+
+lottery-interfaces，接口层，引用：application、rpc
+
+lottery-rpc，RPC接口定义层，引用：common
+
+在抽奖活动的设计和开发过程中，会涉及到的表信息包括：活动表、奖品表、策略表、规则表、用户参与表、中奖信息表等
+
+Dubbo 中广播模式的配置，在你实际使用的过程中一般都是使用注册中心模式
+
+
+
+
+
+
+
+
+
