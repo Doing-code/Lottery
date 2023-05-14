@@ -18,4 +18,15 @@
         WHERE strategy_id = #{strategyId}
     </select>
 
+    <select id="queryNoStockStrategyAwards" parameterType="java.lang.Long" resultType="java.lang.String">
+        SELECT award_id
+        FROM strategy_detail
+        WHERE strategy_id = #{strategyId} AND award_surplus_count = 0
+    </select>
+
+    <update id="deductStock" parameterType="cn.forbearance.lottery.infrastructure.po.StrategyDetail">
+        UPDATE strategy_detail SET award_surplus_count = award_surplus_count - 1
+        WHERE strategy_id = #{strategyId} AND award_id = #{awardId} AND award_surplus_count > 0
+    </update>
+
 </mapper>

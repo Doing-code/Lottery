@@ -3,6 +3,7 @@ package cn.forbearance.lottery.domain.strategy.service.algorithm;
 import cn.forbearance.lottery.domain.strategy.model.vo.AwardRateInfo;
 
 import java.math.BigDecimal;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -67,5 +68,15 @@ public abstract class BaseAlgorithm implements IDrawAlgorithm {
     protected int hashIdx(int val) {
         int hashCode = val * HASH_INCREMENT + HASH_INCREMENT;
         return hashCode & (RATE_TUPLE_LENGTH - 1);
+    }
+
+    /**
+     * 随机值
+     *
+     * @param bound
+     * @return
+     */
+    protected int generateSecureRandomCode(int bound) {
+        return new SecureRandom().nextInt(bound) + 1;
     }
 }

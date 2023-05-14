@@ -2,6 +2,7 @@ package cn.forbearance.lottery.infrastructure.dao;
 
 import cn.forbearance.lottery.infrastructure.po.StrategyDetail;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,4 +19,21 @@ public interface IStrategyDetailDao {
      * @return
      */
     List<StrategyDetail> queryStrategyDetailList(Long strategyId);
+
+    /**
+     * 查询无库存的奖品
+     *
+     * @param strategyId
+     * @return
+     */
+    List<String> queryNoStockStrategyAwards(Long strategyId);
+
+    /**
+     * 扣减库存
+     *
+     * @param strategyId
+     * @param awardId
+     * @return
+     */
+    int deductStock(@Param("strategyId") Long strategyId, @Param("awardId") String awardId);
 }

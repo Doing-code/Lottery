@@ -3,7 +3,6 @@ package cn.forbearance.lottery.domain.strategy.service.algorithm.impl;
 import cn.forbearance.lottery.domain.strategy.service.algorithm.BaseAlgorithm;
 import org.springframework.stereotype.Component;
 
-import java.security.SecureRandom;
 import java.util.List;
 
 /**
@@ -21,12 +20,14 @@ public class SingleRateRandomDrawAlgorithm extends BaseAlgorithm {
         assert rateTuple != null;
 
         // 随机索引
-        int randomVal = new SecureRandom().nextInt(100) + 1;
+        int randomVal = generateSecureRandomCode(100);
         int idx = hashIdx(randomVal);
 
         // 返回结果
         String awardId = rateTuple[idx];
-        if (excludeAwardIds.contains(awardId)) return "未中奖";
+        if (excludeAwardIds.contains(awardId)) {
+            return null;
+        }
         return awardId;
     }
 }

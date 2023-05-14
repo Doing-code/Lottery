@@ -14,8 +14,8 @@ import java.util.List;
  *
  * @author cristina
  */
-@Component("defaultRateRandomDrawAlgorithm")
-public class DefaultRateRandomDrawAlgorithm extends BaseAlgorithm {
+@Component("entiretyRateRandomDrawAlgorithm")
+public class EntiretyRateRandomDrawAlgorithm extends BaseAlgorithm {
 
     @Override
     public String randomDraw(Long strategyId, List<String> excludeAwardIds) {
@@ -32,7 +32,7 @@ public class DefaultRateRandomDrawAlgorithm extends BaseAlgorithm {
         }
 
         // 前置判断
-        if (differenceAwardRates.size() == 0) return "";
+        if (differenceAwardRates.size() == 0) return null;
         if (differenceAwardRates.size() == 1) return differenceAwardRates.get(0).getAwardId();
 
         // 获取随机概率
