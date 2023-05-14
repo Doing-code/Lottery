@@ -53,6 +53,7 @@
         <netty.version>4.1.36.Final</netty.version>
         <redis.version>2.9.0</redis.version>
         <scheduler.version>2.3.2</scheduler.version>
+        <hutool.version>5.8.10</hutool.version>
     </properties>
 
 <!--    <dependencies>-->

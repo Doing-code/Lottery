@@ -1,5 +1,7 @@
 package cn.forbearance.lottery.test;
 
+import cn.forbearance.lottery.domain.strategy.model.req.DrawReq;
+import cn.forbearance.lottery.domain.strategy.service.draw.IDrawExec;
 import cn.forbearance.lottery.infrastructure.dao.IActivityDao;
 import cn.forbearance.lottery.infrastructure.po.Activity;
 import cn.forbearance.lottery.rpc.IActivityBooth;
@@ -29,10 +31,22 @@ public class ApiTest {
     @Resource
     IActivityDao activityDao;
 
+    @Resource
+    private IDrawExec drawExec;
+
+    @Test
+    public void test_drawExec() {
+        drawExec.doDrawExec(new DrawReq("1", 10001L));
+        drawExec.doDrawExec(new DrawReq("2", 10001L));
+        drawExec.doDrawExec(new DrawReq("3", 10001L));
+        drawExec.doDrawExec(new DrawReq("4", 10001L));
+    }
+
+
     @Test
     public void test_insert() {
         Activity activity = new Activity();
-        activity.setActivityId(100002L);
+        activity.setActivityId(100001L);
         activity.setActivityName("测试活动");
         activity.setActivityDesc("仅用于插入数据测试");
         activity.setBeginDateTime(new Date());

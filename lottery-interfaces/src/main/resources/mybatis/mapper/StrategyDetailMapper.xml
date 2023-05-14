@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.forbearance.lottery.infrastructure.dao.IStrategyDetailDao">
+
+    <resultMap id="strategyDetailMap" type="cn.forbearance.lottery.infrastructure.po.StrategyDetail">
+        <id column="id" property="id"/>
+        <result column="strategy_id" property="strategyId"/>
+        <result column="award_id" property="awardId"/>
+        <result column="award_count" property="awardCount"/>
+        <result column="award_rate" property="awardRate"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="queryStrategyDetailList" parameterType="java.lang.Long" resultMap="strategyDetailMap">
+        SELECT id, strategy_id, award_id, award_count, award_rate, create_time, update_time
+        FROM strategy_detail
+        WHERE strategy_id = #{strategyId}
+    </select>
+
+</mapper>
