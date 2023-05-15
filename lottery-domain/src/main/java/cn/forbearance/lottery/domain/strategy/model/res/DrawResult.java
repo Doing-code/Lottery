@@ -44,4 +44,36 @@ public class DrawResult {
         this.drawState = drawState;
         this.drawAwardInfo = drawAwardInfo;
     }
+
+    public String getuId() {
+        return uId;
+    }
+
+    public void setuId(String uId) {
+        this.uId = uId;
+    }
+
+    public Long getStrategyId() {
+        return strategyId;
+    }
+
+    public void setStrategyId(Long strategyId) {
+        this.strategyId = strategyId;
+    }
+
+    public Integer getDrawState() {
+        return drawState;
+    }
+
+    public void setDrawState(Integer drawState) {
+        this.drawState = drawState;
+    }
+
+    public DrawAwardInfo getDrawAwardInfo() {
+        return drawAwardInfo;
+    }
+
+    public void setDrawAwardInfo(DrawAwardInfo drawAwardInfo) {
+        this.drawAwardInfo = drawAwardInfo;
+    }
 }
