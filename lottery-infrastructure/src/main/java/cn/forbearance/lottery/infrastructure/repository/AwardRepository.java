@@ -1,4 +1,4 @@
-package cn.forbearance.lottery.domain.award.repository.impl;
+package cn.forbearance.lottery.infrastructure.repository;
 
 import cn.forbearance.lottery.domain.award.repository.IAwardRepository;
 import org.springframework.stereotype.Component;

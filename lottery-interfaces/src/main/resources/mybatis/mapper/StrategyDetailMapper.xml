@@ -6,6 +6,7 @@
         <id column="id" property="id"/>
         <result column="strategy_id" property="strategyId"/>
         <result column="award_id" property="awardId"/>
+        <result column="award_name" property="awardName"/>
         <result column="award_count" property="awardCount"/>
         <result column="award_rate" property="awardRate"/>
         <result column="create_time" property="createTime"/>
@@ -28,5 +29,23 @@
         UPDATE strategy_detail SET award_surplus_count = award_surplus_count - 1
         WHERE strategy_id = #{strategyId} AND award_id = #{awardId} AND award_surplus_count > 0
     </update>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO strategy_detail(strategy_id, award_id, award_name, award_count, award_surplus_count,
+        award_rate, create_time, update_time)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.strategyId},
+            #{item.awardId},
+            #{item.awardName},
+            #{item.awardCount},
+            #{item.awardSurplusCount},
+            #{item.awardRate},
+            NOW(),
+            NOW()
+            )
+        </foreach>
+    </insert>
 
 </mapper>

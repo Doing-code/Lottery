@@ -3,6 +3,8 @@ package cn.forbearance.lottery.infrastructure.dao;
 import cn.forbearance.lottery.infrastructure.po.Award;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * @author cristina
  */
@@ -16,4 +18,10 @@ public interface IAwardDao {
      * @return
      */
     Award queryAwardInfo(String awardId);
+
+    /**
+     * 批量插入
+     * @param list
+     */
+    void insertBatch(List<Award> list);
 }

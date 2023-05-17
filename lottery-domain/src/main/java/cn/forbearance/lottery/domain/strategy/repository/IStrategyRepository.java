@@ -1,7 +1,7 @@
 package cn.forbearance.lottery.domain.strategy.repository;
 
 import cn.forbearance.lottery.domain.strategy.model.aggregates.StrategyRich;
-import cn.forbearance.lottery.infrastructure.po.Award;
+import cn.forbearance.lottery.domain.strategy.model.vo.AwardBriefVo;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public interface IStrategyRepository {
      * @param awardId
      * @return
      */
-    Award queryAwardInfo(String awardId);
+    AwardBriefVo queryAwardInfo(String awardId);
 
     /**
      * 查询没有库存的奖品

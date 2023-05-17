@@ -1,5 +1,6 @@
 package cn.forbearance.lottery.infrastructure.dao;
 
+import cn.forbearance.lottery.domain.activity.model.vo.AlterStateVo;
 import cn.forbearance.lottery.infrastructure.po.Activity;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -23,4 +24,12 @@ public interface IActivityDao {
      * @return
      */
     Activity queryActivityById(Long activityID);
+
+    /**
+     * 变更活动状态
+     *
+     * @param alterStateVO
+     * @return
+     */
+    int alterState(AlterStateVo alterStateVO);
 }

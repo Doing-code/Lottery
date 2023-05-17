@@ -16,4 +16,10 @@ public interface IStrategyDao {
      * @return
      */
     Strategy queryStrategy(Long strategyId);
+
+    /**
+     * 插入
+     * @param req
+     */
+    void insert(Strategy req);
 }

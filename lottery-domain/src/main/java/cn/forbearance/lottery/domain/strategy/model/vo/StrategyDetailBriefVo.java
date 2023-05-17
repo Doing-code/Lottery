@@ -1,18 +1,13 @@
-package cn.forbearance.lottery.infrastructure.po;
+package cn.forbearance.lottery.domain.strategy.model.vo;
 
 import java.math.BigDecimal;
 
 /**
- * 抽奖策略明细
+ * 抽奖策略明细简要信息
  *
  * @author cristina
  */
-public class StrategyDetail {
-
-    /**
-     * 自增ID
-     */
-    private String id;
+public class StrategyDetailBriefVo {
 
     /**
      * 策略ID
@@ -43,24 +38,6 @@ public class StrategyDetail {
      * 中奖概率
      */
     private BigDecimal awardRate;
-
-    /**
-     * 创建时间
-     */
-    private String createTime;
-
-    /**
-     * 修改时间
-     */
-    private String updateTime;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public Long getStrategyId() {
         return strategyId;
@@ -110,19 +87,15 @@ public class StrategyDetail {
         this.awardRate = awardRate;
     }
 
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
+    @Override
+    public String toString() {
+        return "StrategyDetailBriefVO{" +
+                "strategyId=" + strategyId +
+                ", awardId='" + awardId + '\'' +
+                ", awardName='" + awardName + '\'' +
+                ", awardCount=" + awardCount +
+                ", awardSurplusCount=" + awardSurplusCount +
+                ", awardRate=" + awardRate +
+                '}';
     }
 }

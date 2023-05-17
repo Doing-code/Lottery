@@ -1,8 +1,8 @@
 package cn.forbearance.lottery.domain.strategy.service.draw;
 
 import cn.forbearance.lottery.domain.strategy.model.aggregates.StrategyRich;
+import cn.forbearance.lottery.domain.strategy.model.vo.AwardBriefVo;
 import cn.forbearance.lottery.domain.strategy.repository.IStrategyRepository;
-import cn.forbearance.lottery.infrastructure.po.Award;
 
 import javax.annotation.Resource;
 
@@ -20,7 +20,7 @@ public class DrawStrategySupport extends DrawConfig {
         return strategyRepository.queryStrategyRich(strategyId);
     }
 
-    protected Award queryAwardInfo(String awardId) {
+    protected AwardBriefVo queryAwardInfo(String awardId) {
         return strategyRepository.queryAwardInfo(awardId);
     }
 }

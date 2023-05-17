@@ -4,12 +4,8 @@ import cn.forbearance.lottery.common.Constants;
 import cn.forbearance.lottery.domain.strategy.model.aggregates.StrategyRich;
 import cn.forbearance.lottery.domain.strategy.model.req.DrawReq;
 import cn.forbearance.lottery.domain.strategy.model.res.DrawResult;
-import cn.forbearance.lottery.domain.strategy.model.vo.AwardRateInfo;
-import cn.forbearance.lottery.domain.strategy.model.vo.DrawAwardInfo;
+import cn.forbearance.lottery.domain.strategy.model.vo.*;
 import cn.forbearance.lottery.domain.strategy.service.algorithm.IDrawAlgorithm;
-import cn.forbearance.lottery.infrastructure.po.Award;
-import cn.forbearance.lottery.infrastructure.po.Strategy;
-import cn.forbearance.lottery.infrastructure.po.StrategyDetail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +23,7 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
     public DrawResult doDrawExec(DrawReq req) {
         // 1、获取抽奖策略数据
         StrategyRich strategyRich = queryStrategyRich(req.getStrategyId());
-        Strategy strategy = strategyRich.getStrategy();
+        StrategyBriefVo strategy = strategyRich.getStrategy();
 
         // 2、校验抽奖策略是否初始化
         checkAndInitRateTuple(req.getStrategyId(), strategy.getStrategyMode(), strategyRich.getStrategyDetailList());
@@ -73,7 +69,7 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
             log.info("执行策略抽奖完成【未中奖】，用户：{} 策略ID：{}", uId, strategyId);
             return new DrawResult(uId, strategyId, Constants.DrawState.FAIL.getCode());
         }
-        Award award = queryAwardInfo(awardId);
+        AwardBriefVo award = queryAwardInfo(awardId);
         DrawAwardInfo drawAwardInfo = new DrawAwardInfo(award.getAwardId(), award.getAwardType(), award.getAwardName(), award.getAwardContent());
         log.info("执行策略抽奖完成【已中奖】，用户：{} 策略ID：{} 奖品ID：{} 奖品名称：{}", uId, strategyId, awardId, award.getAwardName());
 
@@ -87,7 +83,7 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
      * @param strategyMode
      * @param strategyDetails
      */
-    public void checkAndInitRateTuple(Long strategyId, Integer strategyMode, List<StrategyDetail> strategyDetails) {
+    public void checkAndInitRateTuple(Long strategyId, Integer strategyMode, List<StrategyDetailBriefVo> strategyDetails) {
         // 非单项概率，不必要执行
 //        if (Constants.StrategyMode.SINGLE.getCode().equals(strategyMode)) return;
 
@@ -97,7 +93,7 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
 
         // 解析并初始化中奖概率数据到散列表
         ArrayList<AwardRateInfo> awardRateInfos = new ArrayList<>(strategyDetails.size());
-        for (StrategyDetail strategyDetail : strategyDetails) {
+        for (StrategyDetailBriefVo strategyDetail : strategyDetails) {
             awardRateInfos.add(new AwardRateInfo(strategyDetail.getAwardId(), strategyDetail.getAwardRate()));
         }
         drawAlgorithm.initRateTuple(strategyId, awardRateInfos);

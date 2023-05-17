@@ -31,11 +31,6 @@
 
         <dependency>
             <groupId>cn.forbearance.lottery</groupId>
-            <artifactId>lottery-infrastructure</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>cn.forbearance.lottery</groupId>
             <artifactId>lottery-common</artifactId>
             <version>0.0.1</version>
         </dependency>

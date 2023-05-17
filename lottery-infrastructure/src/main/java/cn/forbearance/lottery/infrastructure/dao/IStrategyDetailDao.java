@@ -36,4 +36,11 @@ public interface IStrategyDetailDao {
      * @return
      */
     int deductStock(@Param("strategyId") Long strategyId, @Param("awardId") String awardId);
+
+    /**
+     * 批量插入
+     *
+     * @param req
+     */
+    void insertBatch(List<StrategyDetail> req);
 }

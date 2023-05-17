@@ -19,6 +19,13 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.1.4</version>
         </dependency>
+
+        <dependency>
+            <groupId>cn.forbearance.lottery</groupId>
+            <artifactId>lottery-domain</artifactId>
+            <version>0.0.1</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
