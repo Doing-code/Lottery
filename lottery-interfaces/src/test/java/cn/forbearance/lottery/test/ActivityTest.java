@@ -3,11 +3,14 @@ package cn.forbearance.lottery.test;
 import cn.forbearance.lottery.common.Constants;
 import cn.forbearance.lottery.domain.activity.model.aggregates.ActivityConfigRich;
 import cn.forbearance.lottery.domain.activity.model.req.ActivityConfigReq;
+import cn.forbearance.lottery.domain.activity.model.req.PartakeReq;
+import cn.forbearance.lottery.domain.activity.model.res.PartakeResult;
 import cn.forbearance.lottery.domain.activity.model.vo.ActivityVo;
 import cn.forbearance.lottery.domain.activity.model.vo.AwardVo;
 import cn.forbearance.lottery.domain.activity.model.vo.StrategyDetailVo;
 import cn.forbearance.lottery.domain.activity.model.vo.StrategyVo;
 import cn.forbearance.lottery.domain.activity.service.deploy.IActivityDeploy;
+import cn.forbearance.lottery.domain.activity.service.partake.IActivityPartake;
 import cn.forbearance.lottery.domain.activity.service.stateflow.IStateHandler;
 import com.alibaba.fastjson.JSON;
 import org.junit.Before;
@@ -40,6 +43,9 @@ public class ActivityTest {
     private IStateHandler stateHandler;
 
     private ActivityConfigRich activityConfigRich;
+
+    @Resource
+    private IActivityPartake activityPartake;
 
     /**
      * TODO：后面编写ID生成策略
@@ -169,4 +175,13 @@ public class ActivityTest {
         logger.info("运行活动，测试：{}", JSON.toJSONString(stateHandler.doing(100001L, Constants.ActivityState.PASS)));
         logger.info("二次提审，测试：{}", JSON.toJSONString(stateHandler.checkPass(100001L, Constants.ActivityState.EDIT)));
     }
+
+    @Test
+    public void test_activityPartake() {
+        PartakeReq req = new PartakeReq("Uhdgkw766120d", 100001L);
+        PartakeResult res = activityPartake.doPartake(req);
+        logger.info("请求参数：{}", JSON.toJSONString(req));
+        logger.info("测试结果：{}", JSON.toJSONString(res));
+    }
+
 }

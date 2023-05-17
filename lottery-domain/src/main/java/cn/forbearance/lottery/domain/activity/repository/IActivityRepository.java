@@ -1,10 +1,8 @@
 package cn.forbearance.lottery.domain.activity.repository;
 
 import cn.forbearance.lottery.common.Constants;
-import cn.forbearance.lottery.domain.activity.model.vo.ActivityVo;
-import cn.forbearance.lottery.domain.activity.model.vo.AwardVo;
-import cn.forbearance.lottery.domain.activity.model.vo.StrategyDetailVo;
-import cn.forbearance.lottery.domain.activity.model.vo.StrategyVo;
+import cn.forbearance.lottery.domain.activity.model.req.PartakeReq;
+import cn.forbearance.lottery.domain.activity.model.vo.*;
 
 import java.util.List;
 
@@ -52,4 +50,20 @@ public interface IActivityRepository {
      * @return
      */
     boolean alterStatus(Long activityId, Enum<Constants.ActivityState> beforeState, Enum<Constants.ActivityState> afterState);
+
+    /**
+     * 查询活动账单信息【库存、状态、日期、个人参与次数】
+     *
+     * @param req 参与活动请求
+     * @return 活动账单
+     */
+    ActivityBillVo queryActivityBill(PartakeReq req);
+
+    /**
+     * 扣减活动库存
+     *
+     * @param activityId 活动ID
+     * @return 扣减结果
+     */
+    int subtractionActivityStock(Long activityId);
 }

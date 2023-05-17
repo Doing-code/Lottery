@@ -1,16 +1,11 @@
 package cn.forbearance.lottery.infrastructure.repository;
 
 import cn.forbearance.lottery.common.Constants;
+import cn.forbearance.lottery.domain.activity.model.req.PartakeReq;
 import cn.forbearance.lottery.domain.activity.model.vo.*;
 import cn.forbearance.lottery.domain.activity.repository.IActivityRepository;
-import cn.forbearance.lottery.infrastructure.dao.IActivityDao;
-import cn.forbearance.lottery.infrastructure.dao.IAwardDao;
-import cn.forbearance.lottery.infrastructure.dao.IStrategyDao;
-import cn.forbearance.lottery.infrastructure.dao.IStrategyDetailDao;
-import cn.forbearance.lottery.infrastructure.po.Activity;
-import cn.forbearance.lottery.infrastructure.po.Award;
-import cn.forbearance.lottery.infrastructure.po.Strategy;
-import cn.forbearance.lottery.infrastructure.po.StrategyDetail;
+import cn.forbearance.lottery.infrastructure.dao.*;
+import cn.forbearance.lottery.infrastructure.po.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +27,8 @@ public class ActivityRepository implements IActivityRepository {
     private IStrategyDao strategyDao;
     @Resource
     private IStrategyDetailDao strategyDetailDao;
+    @Resource
+    private IUserTakeActivityCountDao userTakeActivityCountDao;
 
     @Override
     public void addActivity(ActivityVo activity) {
@@ -75,4 +72,33 @@ public class ActivityRepository implements IActivityRepository {
         int count = activityDao.alterState(alterStateVO);
         return 1 == count;
     }
+
+    @Override
+    public ActivityBillVo queryActivityBill(PartakeReq req) {
+
+        // 查询活动信息
+        Activity activity = activityDao.queryActivityById(req.getActivityId());
+
+        // 查询领取次数
+        UserTakeActivityCount userTakeActivityCountReq = new UserTakeActivityCount();
+        userTakeActivityCountReq.setuId(req.getuId());
+        userTakeActivityCountReq.setActivityId(req.getActivityId());
+        UserTakeActivityCount userTakeActivityCount = userTakeActivityCountDao.queryUserTakeActivityCount(userTakeActivityCountReq);
+
+        // 封装结果信息
+        ActivityBillVo activityBillVO = new ActivityBillVo();
+        BeanUtils.copyProperties(activity, activityBillVO);
+
+        activityBillVO.setuId(req.getuId());
+        activityBillVO.setActivityId(req.getActivityId());
+        activityBillVO.setUserTakeLeftCount(null == userTakeActivityCount ? null : userTakeActivityCount.getLeftCount());
+
+        return activityBillVO;
+    }
+
+    @Override
+    public int subtractionActivityStock(Long activityId) {
+        return activityDao.subtractionActivityStock(activityId);
+    }
+
 }

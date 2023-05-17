@@ -1,5 +1,8 @@
 package cn.forbearance.lottery.domain.activity.service.partake;
 
+import cn.forbearance.lottery.domain.activity.model.req.PartakeReq;
+import cn.forbearance.lottery.domain.activity.model.res.PartakeResult;
+
 /**
  * 抽奖活动参与接口
  *
@@ -8,7 +11,10 @@ package cn.forbearance.lottery.domain.activity.service.partake;
 public interface IActivityPartake {
 
     /**
-     * TODO
+     * 参与活动
+     *
+     * @param req 入参
+     * @return 领取结果
      */
-    void doPartake();
+    PartakeResult doPartake(PartakeReq req);
 }

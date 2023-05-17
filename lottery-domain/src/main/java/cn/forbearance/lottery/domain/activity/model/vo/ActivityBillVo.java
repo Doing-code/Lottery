@@ -1,90 +1,64 @@
-package cn.forbearance.lottery.infrastructure.po;
+package cn.forbearance.lottery.domain.activity.model.vo;
 
 import java.util.Date;
 
 /**
- * 活动基础信息表
+ * 活动账单【库存、状态、日期、个人参与次数】
  *
  * @author cristina
  */
-public class Activity {
+public class ActivityBillVo {
 
     /**
-     * 自增ID
+     * 用户ID
      */
-    private Long id;
+    private String uId;
 
     /**
      * 活动ID
      */
     private Long activityId;
-
     /**
      * 活动名称
      */
     private String activityName;
-
-    /**
-     * 活动描述
-     */
-    private String activityDesc;
-
     /**
      * 开始时间
      */
     private Date beginDateTime;
-
     /**
      * 结束时间
      */
     private Date endDateTime;
-
-    /**
-     * 库存
-     */
-    private Integer stockCount;
-
     /**
      * 库存剩余
      */
     private Integer stockSurplusCount;
-
     /**
-     * 每人可参与次数
+     * 活动状态：1编辑、2提审、3撤审、4通过、5运行(审核通过后worker扫描状态)、6拒绝、7关闭、8开启
+     * Constants.ActivityState
      */
-    private Integer takeCount;
-
+    private Integer state;
     /**
      * 策略ID
      */
     private Long strategyId;
 
     /**
-     * 活动状态：1编辑、2提审、3撤审、4通过、5运行(审核通过后worker扫描状态)、6拒绝、7关闭、8开启
+     * 每人可参与次数
      */
-    private Integer state;
-
+    private Integer takeCount;
     /**
-     * 创建人
+     * 已领取次数
      */
-    private String creator;
+    private Integer userTakeLeftCount;
 
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-
-    /**
-     * 修改时间
-     */
-    private Date updateTime;
-
-    public Long getId() {
-        return id;
+    public String getuId() {
+        return uId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setuId(String uId) {
+        this.uId = uId;
     }
 
     public Long getActivityId() {
@@ -103,14 +77,6 @@ public class Activity {
         this.activityName = activityName;
     }
 
-    public String getActivityDesc() {
-        return activityDesc;
-    }
-
-    public void setActivityDesc(String activityDesc) {
-        this.activityDesc = activityDesc;
-    }
-
     public Date getBeginDateTime() {
         return beginDateTime;
     }
@@ -127,36 +93,12 @@ public class Activity {
         this.endDateTime = endDateTime;
     }
 
-    public Integer getStockCount() {
-        return stockCount;
-    }
-
-    public void setStockCount(Integer stockCount) {
-        this.stockCount = stockCount;
-    }
-
     public Integer getStockSurplusCount() {
         return stockSurplusCount;
     }
 
     public void setStockSurplusCount(Integer stockSurplusCount) {
         this.stockSurplusCount = stockSurplusCount;
-    }
-
-    public Integer getTakeCount() {
-        return takeCount;
-    }
-
-    public void setTakeCount(Integer takeCount) {
-        this.takeCount = takeCount;
-    }
-
-    public Long getStrategyId() {
-        return strategyId;
-    }
-
-    public void setStrategyId(Long strategyId) {
-        this.strategyId = strategyId;
     }
 
     public Integer getState() {
@@ -167,27 +109,42 @@ public class Activity {
         this.state = state;
     }
 
-    public String getCreator() {
-        return creator;
+    public Long getStrategyId() {
+        return strategyId;
     }
 
-    public void setCreator(String creator) {
-        this.creator = creator;
+    public void setStrategyId(Long strategyId) {
+        this.strategyId = strategyId;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Integer getTakeCount() {
+        return takeCount;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setTakeCount(Integer takeCount) {
+        this.takeCount = takeCount;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public Integer getUserTakeLeftCount() {
+        return userTakeLeftCount;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setUserTakeLeftCount(Integer userTakeLeftCount) {
+        this.userTakeLeftCount = userTakeLeftCount;
+    }
+
+    @Override
+    public String toString() {
+        return "ActivityBillVO{" +
+                "uId='" + uId + '\'' +
+                ", activityId=" + activityId +
+                ", activityName='" + activityName + '\'' +
+                ", beginDateTime=" + beginDateTime +
+                ", endDateTime=" + endDateTime +
+                ", stockSurplusCount=" + stockSurplusCount +
+                ", state=" + state +
+                ", takeCount=" + takeCount +
+                ", userTakeLeftCount=" + userTakeLeftCount +
+                '}';
     }
 }

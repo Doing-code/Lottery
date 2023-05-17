@@ -1,4 +1,4 @@
-package cn.forbearance.lottery.domain.activity.service.deploy;
+package cn.forbearance.lottery.domain.activity.service.deploy.impl;
 
 import cn.forbearance.lottery.domain.activity.model.aggregates.ActivityConfigRich;
 import cn.forbearance.lottery.domain.activity.model.req.ActivityConfigReq;
@@ -7,6 +7,7 @@ import cn.forbearance.lottery.domain.activity.model.vo.AwardVo;
 import cn.forbearance.lottery.domain.activity.model.vo.StrategyDetailVo;
 import cn.forbearance.lottery.domain.activity.model.vo.StrategyVo;
 import cn.forbearance.lottery.domain.activity.repository.IActivityRepository;
+import cn.forbearance.lottery.domain.activity.service.deploy.IActivityDeploy;
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
