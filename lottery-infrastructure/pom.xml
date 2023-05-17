@@ -26,6 +26,12 @@
             <version>0.0.1</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>cn.forbearance.db.router</groupId>
+            <artifactId>db-router</artifactId>
+            <version>0.0.1</version>
+        </dependency>
     </dependencies>
 
     <build>

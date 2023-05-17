@@ -24,3 +24,31 @@ dubbo:
     port: 20880
   scan:
     base-packages: cn.itedus.lottery.rpc
+
+# 多数据源路由配置
+mini-db-router:
+  jdbc:
+    datasource:
+      # 需要分库的 库数量
+      dbCount: 2
+      # 需要分表的 表数量（单表）
+      tbCount: 4
+      default: db00
+      routerKey: uId
+      list: db01,db02
+      db00:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/lottery?useUnicode=true
+        username: root
+        password: root
+      db01:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/lottery_01?useUnicode=true
+        username: root
+        password: root
+      db02:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/lottery_02?useUnicode=true
+        username: root
+        password: root
+
