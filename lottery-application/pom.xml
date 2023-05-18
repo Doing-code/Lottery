@@ -12,5 +12,11 @@
     <artifactId>lottery-application</artifactId>
     <name>应用模块</name>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>cn.forbearance.lottery</groupId>
+            <artifactId>lottery-domain</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+    </dependencies>
 </project>

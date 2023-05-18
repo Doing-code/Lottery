@@ -1,7 +1,9 @@
 package cn.forbearance.lottery.domain.activity.service.partake;
 
+import cn.forbearance.lottery.common.Result;
 import cn.forbearance.lottery.domain.activity.model.req.PartakeReq;
 import cn.forbearance.lottery.domain.activity.model.res.PartakeResult;
+import cn.forbearance.lottery.domain.activity.model.vo.DrawOrderVo;
 
 /**
  * 抽奖活动参与接口
@@ -17,4 +19,12 @@ public interface IActivityPartake {
      * @return 领取结果
      */
     PartakeResult doPartake(PartakeReq req);
+
+    /**
+     * 保存奖品单
+     *
+     * @param drawOrder 奖品单
+     * @return 保存结果
+     */
+    Result recordDrawOrder(DrawOrderVo drawOrder);
 }

@@ -24,4 +24,18 @@
         #{takeCount}, #{uuid}, now(), now())
     </insert>
 
+    <update id="lockTackActivity" parameterType="cn.forbearance.lottery.infrastructure.po.UserTakeActivity">
+        UPDATE user_take_activity SET state = 1
+        WHERE u_id = #{uId} AND activity_id = #{activityId} AND state = 0
+    </update>
+
+    <select id="queryNoConsumedTakeActivityOrder"
+            parameterType="cn.forbearance.lottery.infrastructure.po.UserTakeActivity" resultMap="userTakeActivityMap">
+        SELECT activity_id, take_id, strategy_id, state
+        FROM user_take_activity
+        WHERE u_id = #{uId} AND activity_id = #{activityId} AND state = 0
+        ORDER BY id DESC
+        LIMIT 1
+    </select>
+
 </mapper>

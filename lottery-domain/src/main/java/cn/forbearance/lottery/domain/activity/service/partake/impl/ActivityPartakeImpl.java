@@ -5,6 +5,8 @@ import cn.forbearance.lottery.common.Constants;
 import cn.forbearance.lottery.common.Result;
 import cn.forbearance.lottery.domain.activity.model.req.PartakeReq;
 import cn.forbearance.lottery.domain.activity.model.vo.ActivityBillVo;
+import cn.forbearance.lottery.domain.activity.model.vo.DrawOrderVo;
+import cn.forbearance.lottery.domain.activity.model.vo.UserTakeActivityVo;
 import cn.forbearance.lottery.domain.activity.repository.IUserTakeActivityRepository;
 import cn.forbearance.lottery.domain.activity.service.partake.BaseActivityPartake;
 import cn.forbearance.lottery.domain.support.ids.IdGenerator;
@@ -100,5 +102,38 @@ public class ActivityPartakeImpl extends BaseActivityPartake {
         } finally {
             dbRouter.clear();
         }
+    }
+
+    @Override
+    public Result recordDrawOrder(DrawOrderVo drawOrder) {
+        try {
+            dbRouter.doRouter(drawOrder.getuId());
+            return transactionTemplate.execute(status -> {
+                try {
+                    // 锁定活动领取记录
+                    int lockCount = userTakeActivityRepository.lockTackActivity(drawOrder.getuId(), drawOrder.getActivityId(), drawOrder.getTakeId());
+                    if (0 == lockCount) {
+                        status.setRollbackOnly();
+                        log.error("记录中奖单，个人参与活动抽奖已消耗完 activityId：{} uId：{}", drawOrder.getActivityId(), drawOrder.getuId());
+                        return Result.buildResult(Constants.ResponseCode.NO_UPDATE);
+                    }
+
+                    // 保存抽奖信息
+                    userTakeActivityRepository.saveUserStrategyExport(drawOrder);
+                } catch (DuplicateKeyException e) {
+                    status.setRollbackOnly();
+                    log.error("记录中奖单，唯一索引冲突 activityId：{} uId：{}", drawOrder.getActivityId(), drawOrder.getuId(), e);
+                    return Result.buildResult(Constants.ResponseCode.INDEX_DUP);
+                }
+                return Result.buildSuccessResult();
+            });
+        } finally {
+            dbRouter.clear();
+        }
+    }
+
+    @Override
+    protected UserTakeActivityVo queryNoConsumedTakeActivityOrder(Long activityId, String uId) {
+        return userTakeActivityRepository.queryNoConsumedTakeActivityOrder(activityId, uId);
     }
 }

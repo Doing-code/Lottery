@@ -6,7 +6,7 @@
         <id column="id" property="id"/>
         <result column="award_id" property="awardId"/>
         <result column="award_type" property="awardType"/>
-        <result column="award_count" property="awardCount"/>
+<!--        <result column="award_count" property="awardCount"/>-->
         <result column="award_name" property="awardName"/>
         <result column="award_content" property="awardContent"/>
         <result column="create_time" property="createTime"/>
@@ -15,7 +15,9 @@
 
     <select id="queryAwardInfo" parameterType="java.lang.String" resultMap="strategyMap">
         SELECT
-        id, award_id, award_type, award_count, award_name, award_content, create_time, update_time
+        id, award_id, award_type,
+<!--        award_count, -->
+        award_name, award_content, create_time, update_time
         FROM award
         WHERE award_id = #{awardId}
     </select>
