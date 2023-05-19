@@ -1,6 +1,6 @@
 package cn.forbearance.lottery.domain.strategy.service.algorithm.impl;
 
-import cn.forbearance.lottery.domain.strategy.model.vo.AwardRateInfo;
+import cn.forbearance.lottery.domain.strategy.model.vo.AwardRateVo;
 import cn.forbearance.lottery.domain.strategy.service.algorithm.BaseAlgorithm;
 import org.springframework.stereotype.Component;
 
@@ -20,15 +20,15 @@ public class EntiretyRateRandomDrawAlgorithm extends BaseAlgorithm {
     @Override
     public String randomDraw(Long strategyId, List<String> excludeAwardIds) {
         BigDecimal differenceDenominator = BigDecimal.ZERO;
-        ArrayList<AwardRateInfo> differenceAwardRates = new ArrayList<>();
+        ArrayList<AwardRateVo> differenceAwardRates = new ArrayList<>();
 
         // 排除不在抽奖范围的奖品id集合
-        for (AwardRateInfo awardRateInfo : awardRateInfoMap.get(strategyId)) {
-            if (excludeAwardIds.contains(awardRateInfo.getAwardId())) {
+        for (AwardRateVo awardRateVo : awardRateInfoMap.get(strategyId)) {
+            if (excludeAwardIds.contains(awardRateVo.getAwardId())) {
                 continue;
             }
-            differenceAwardRates.add(awardRateInfo);
-            differenceDenominator = differenceDenominator.add(awardRateInfo.getAwardRate());
+            differenceAwardRates.add(awardRateVo);
+            differenceDenominator = differenceDenominator.add(awardRateVo.getAwardRate());
         }
 
         // 前置判断
@@ -41,10 +41,10 @@ public class EntiretyRateRandomDrawAlgorithm extends BaseAlgorithm {
         String awardId = "";
         int cursorVal = 0;
         // 循环获取奖品
-        for (AwardRateInfo awardRateInfo : differenceAwardRates) {
-            int rateVal = awardRateInfo.getAwardRate().divide(differenceDenominator, 2, BigDecimal.ROUND_UP).multiply(DEFAULT_SHARE).intValue();
+        for (AwardRateVo awardRateVo : differenceAwardRates) {
+            int rateVal = awardRateVo.getAwardRate().divide(differenceDenominator, 2, BigDecimal.ROUND_UP).multiply(DEFAULT_SHARE).intValue();
             if (randomVal <= (cursorVal + rateVal)) {
-                awardId = awardRateInfo.getAwardId();
+                awardId = awardRateVo.getAwardId();
                 break;
             }
             cursorVal += rateVal;

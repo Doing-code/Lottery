@@ -70,10 +70,10 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
             return new DrawResult(uId, strategyId, Constants.DrawState.FAIL.getCode());
         }
         AwardBriefVo award = queryAwardInfo(awardId);
-        DrawAwardInfo drawAwardInfo = new DrawAwardInfo(award.getAwardId(), award.getAwardType(), award.getAwardName(), award.getAwardContent());
+        DrawAwardVo drawAwardVo = new DrawAwardVo(award.getAwardId(), award.getAwardType(), award.getAwardName(), award.getAwardContent());
         log.info("执行策略抽奖完成【已中奖】，用户：{} 策略ID：{} 奖品ID：{} 奖品名称：{}", uId, strategyId, awardId, award.getAwardName());
 
-        return new DrawResult(uId, strategyId, Constants.DrawState.SUCCESS.getCode(), drawAwardInfo);
+        return new DrawResult(uId, strategyId, Constants.DrawState.SUCCESS.getCode(), drawAwardVo);
     }
 
     /**
@@ -92,10 +92,10 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
         if (drawAlgorithm.isExistRateTuple(strategyId)) return;
 
         // 解析并初始化中奖概率数据到散列表
-        ArrayList<AwardRateInfo> awardRateInfos = new ArrayList<>(strategyDetails.size());
+        ArrayList<AwardRateVo> awardRateVos = new ArrayList<>(strategyDetails.size());
         for (StrategyDetailBriefVo strategyDetail : strategyDetails) {
-            awardRateInfos.add(new AwardRateInfo(strategyDetail.getAwardId(), strategyDetail.getAwardRate()));
+            awardRateVos.add(new AwardRateVo(strategyDetail.getAwardId(), strategyDetail.getAwardRate()));
         }
-        drawAlgorithm.initRateTuple(strategyId, awardRateInfos);
+        drawAlgorithm.initRateTuple(strategyId, awardRateVos);
     }
 }

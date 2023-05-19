@@ -1,7 +1,7 @@
 package cn.forbearance.lottery.domain.strategy.model.res;
 
 import cn.forbearance.lottery.common.Constants;
-import cn.forbearance.lottery.domain.strategy.model.vo.DrawAwardInfo;
+import cn.forbearance.lottery.domain.strategy.model.vo.DrawAwardVo;
 
 /**
  * @author cristina
@@ -26,7 +26,7 @@ public class DrawResult {
     /**
      * 中奖奖品信息
      */
-    private DrawAwardInfo drawAwardInfo;
+    private DrawAwardVo drawAwardVo;
 
 
     public DrawResult() {
@@ -38,11 +38,11 @@ public class DrawResult {
         this.drawState = drawState;
     }
 
-    public DrawResult(String uId, Long strategyId, Integer drawState, DrawAwardInfo drawAwardInfo) {
+    public DrawResult(String uId, Long strategyId, Integer drawState, DrawAwardVo drawAwardVo) {
         this.uId = uId;
         this.strategyId = strategyId;
         this.drawState = drawState;
-        this.drawAwardInfo = drawAwardInfo;
+        this.drawAwardVo = drawAwardVo;
     }
 
     public String getuId() {
@@ -69,11 +69,11 @@ public class DrawResult {
         this.drawState = drawState;
     }
 
-    public DrawAwardInfo getDrawAwardInfo() {
-        return drawAwardInfo;
+    public DrawAwardVo getDrawAwardVo() {
+        return drawAwardVo;
     }
 
-    public void setDrawAwardInfo(DrawAwardInfo drawAwardInfo) {
-        this.drawAwardInfo = drawAwardInfo;
+    public void setDrawAwardVo(DrawAwardVo drawAwardVo) {
+        this.drawAwardVo = drawAwardVo;
     }
 }

@@ -1,6 +1,6 @@
 package cn.forbearance.lottery.domain.strategy.service.algorithm;
 
-import cn.forbearance.lottery.domain.strategy.model.vo.AwardRateInfo;
+import cn.forbearance.lottery.domain.strategy.model.vo.AwardRateVo;
 
 import java.math.BigDecimal;
 import java.security.SecureRandom;
@@ -33,22 +33,22 @@ public abstract class BaseAlgorithm implements IDrawAlgorithm {
     /**
      * 奖品区间概率：strategyId -> [awardId->begin、awardId->end]
      */
-    protected Map<Long, List<AwardRateInfo>> awardRateInfoMap = new ConcurrentHashMap<>();
+    protected Map<Long, List<AwardRateVo>> awardRateInfoMap = new ConcurrentHashMap<>();
 
     protected final BigDecimal DEFAULT_SHARE = new BigDecimal(100);
 
     @Override
-    public void initRateTuple(Long strategyId, List<AwardRateInfo> awardRateInfos) {
+    public void initRateTuple(Long strategyId, List<AwardRateVo> awardRateVos) {
         // 保存奖品概率信息
-        awardRateInfoMap.put(strategyId, awardRateInfos);
+        awardRateInfoMap.put(strategyId, awardRateVos);
         String[] rateTuple = rateTupleMap.computeIfAbsent(strategyId, k -> new String[RATE_TUPLE_LENGTH]);
 
         int cursorVal = 0;
-        for (AwardRateInfo awardRateInfo : awardRateInfos) {
-            int rateVal = awardRateInfo.getAwardRate().multiply(DEFAULT_SHARE).intValue();
+        for (AwardRateVo awardRateVo : awardRateVos) {
+            int rateVal = awardRateVo.getAwardRate().multiply(DEFAULT_SHARE).intValue();
             for (int i = cursorVal + 1; i <= (rateVal + cursorVal); i++) {
                 // 填充概率范围值
-                rateTuple[hashIdx(i)] = awardRateInfo.getAwardId();
+                rateTuple[hashIdx(i)] = awardRateVo.getAwardId();
             }
             cursorVal += rateVal;
         }

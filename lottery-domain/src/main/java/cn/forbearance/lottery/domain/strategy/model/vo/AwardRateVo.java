@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  *
  * @author cristina
  */
-public class AwardRateInfo {
+public class AwardRateVo {
 
     /**
      * 奖品ID
@@ -19,10 +19,10 @@ public class AwardRateInfo {
      */
     private BigDecimal awardRate;
 
-    public AwardRateInfo() {
+    public AwardRateVo() {
     }
 
-    public AwardRateInfo(String awardId, BigDecimal awardRate) {
+    public AwardRateVo(String awardId, BigDecimal awardRate) {
         this.awardId = awardId;
         this.awardRate = awardRate;
     }

@@ -4,12 +4,11 @@ import cn.forbearance.lottery.common.Constants;
 import cn.forbearance.lottery.domain.award.model.req.GoodsReq;
 import cn.forbearance.lottery.domain.award.model.res.DistributionRes;
 import cn.forbearance.lottery.domain.award.service.factory.DistributionGoodsFactory;
-import cn.forbearance.lottery.domain.award.service.goods.DistributionBase;
 import cn.forbearance.lottery.domain.award.service.goods.IDistributionGoods;
 import cn.forbearance.lottery.domain.strategy.model.req.DrawReq;
 import cn.forbearance.lottery.domain.strategy.model.res.DrawResult;
-import cn.forbearance.lottery.domain.strategy.model.vo.AwardRateInfo;
-import cn.forbearance.lottery.domain.strategy.model.vo.DrawAwardInfo;
+import cn.forbearance.lottery.domain.strategy.model.vo.AwardRateVo;
+import cn.forbearance.lottery.domain.strategy.model.vo.DrawAwardVo;
 import cn.forbearance.lottery.domain.strategy.service.algorithm.IDrawAlgorithm;
 import cn.forbearance.lottery.domain.strategy.service.draw.IDrawExec;
 import com.alibaba.fastjson.JSON;
@@ -45,12 +44,12 @@ public class DrawAlgorithmTest {
     @Before
     public void init() {
         // 奖品信息
-        List<AwardRateInfo> strategyList = new ArrayList<>();
-        strategyList.add(new AwardRateInfo("一等奖：IMac", new BigDecimal("0.05")));
-        strategyList.add(new AwardRateInfo("二等奖：iphone", new BigDecimal("0.15")));
-        strategyList.add(new AwardRateInfo("三等奖：ipad", new BigDecimal("0.20")));
-        strategyList.add(new AwardRateInfo("四等奖：AirPods", new BigDecimal("0.25")));
-        strategyList.add(new AwardRateInfo("五等奖：充电宝", new BigDecimal("0.35")));
+        List<AwardRateVo> strategyList = new ArrayList<>();
+        strategyList.add(new AwardRateVo("一等奖：IMac", new BigDecimal("0.05")));
+        strategyList.add(new AwardRateVo("二等奖：iphone", new BigDecimal("0.15")));
+        strategyList.add(new AwardRateVo("三等奖：ipad", new BigDecimal("0.20")));
+        strategyList.add(new AwardRateVo("四等奖：AirPods", new BigDecimal("0.25")));
+        strategyList.add(new AwardRateVo("五等奖：充电宝", new BigDecimal("0.35")));
 
         // 初始数据
         randomDrawAlgorithm.initRateTuple(100001L, strategyList);
@@ -94,11 +93,11 @@ public class DrawAlgorithmTest {
         }
 
         // 封装发奖参数，orderId：2109313442431 为模拟ID，需要在用户参与领奖活动时生成
-        DrawAwardInfo drawAwardInfo = drawResult.getDrawAwardInfo();
-        GoodsReq goodsReq = new GoodsReq(drawResult.getuId(), "2109313442431", drawAwardInfo.getAwardId(), drawAwardInfo.getAwardName(), drawAwardInfo.getAwardContent());
+        DrawAwardVo drawAwardVo = drawResult.getDrawAwardVo();
+        GoodsReq goodsReq = new GoodsReq(drawResult.getuId(), "2109313442431", drawAwardVo.getAwardId(), drawAwardVo.getAwardName(), drawAwardVo.getAwardContent());
 
         // 根据 awardType 从抽奖工厂中获取对应的发奖服务
-        IDistributionGoods distributionGoodsService = distributionGoodsFactory.getDistributionGoodsService(drawAwardInfo.getAwardType());
+        IDistributionGoods distributionGoodsService = distributionGoodsFactory.getDistributionGoodsService(drawAwardVo.getAwardType());
         DistributionRes distributionRes = distributionGoodsService.doDistribution(goodsReq);
 
         log.info("测试结果：{}", JSON.toJSONString(distributionRes));

@@ -3,6 +3,9 @@ package cn.forbearance.lottery.test;
 import cn.forbearance.lottery.application.process.IActivityProcess;
 import cn.forbearance.lottery.application.process.req.DrawProcessReq;
 import cn.forbearance.lottery.application.process.res.DrawProcessResult;
+import cn.forbearance.lottery.domain.rule.model.req.DecisionMatterReq;
+import cn.forbearance.lottery.domain.rule.model.res.EngineResult;
+import cn.forbearance.lottery.domain.rule.service.engine.EngineFilter;
 import cn.forbearance.lottery.domain.strategy.model.req.DrawReq;
 import cn.forbearance.lottery.domain.strategy.service.draw.IDrawExec;
 import cn.forbearance.lottery.infrastructure.dao.IActivityDao;
@@ -21,6 +24,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * @author cristina
@@ -92,5 +96,23 @@ public class ApiTest {
         logger.info("测试结果：{}", JSON.toJSONString(drawProcessResult));
     }
 
+    @Resource
+    private EngineFilter engineFilter;
+
+    @Test
+    public void test_process() {
+        DecisionMatterReq req = new DecisionMatterReq();
+        req.setTreeId(2110081902L);
+        req.setUserId("fustack");
+        req.setValMap(new HashMap<String, Object>() {{
+            put("gender", "man");
+            put("age", "25");
+        }});
+
+        EngineResult res = engineFilter.process(req);
+
+        logger.info("请求参数：{}", JSON.toJSONString(req));
+        logger.info("测试结果：{}", JSON.toJSONString(res));
+    }
 
 }

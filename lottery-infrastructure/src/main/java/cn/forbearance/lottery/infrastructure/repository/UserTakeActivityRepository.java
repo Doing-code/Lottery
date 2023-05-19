@@ -9,7 +9,7 @@ import cn.forbearance.lottery.infrastructure.dao.IUserTakeActivityDao;
 import cn.forbearance.lottery.infrastructure.po.UserStrategyExport;
 import cn.forbearance.lottery.infrastructure.po.UserTakeActivity;
 import cn.forbearance.lottery.infrastructure.po.UserTakeActivityCount;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -17,7 +17,7 @@ import java.util.Date;
 /**
  * @author cristina
  */
-@Component
+@Repository
 public class UserTakeActivityRepository implements IUserTakeActivityRepository {
 
     @Resource

@@ -1,6 +1,6 @@
 package cn.forbearance.lottery.domain.strategy.service.algorithm;
 
-import cn.forbearance.lottery.domain.strategy.model.vo.AwardRateInfo;
+import cn.forbearance.lottery.domain.strategy.model.vo.AwardRateVo;
 
 import java.util.List;
 
@@ -31,9 +31,9 @@ public interface IDrawAlgorithm {
      * </pre>
      *
      * @param strategyId     策略id
-     * @param awardRateInfos 奖品概率配置集合：「值示例：AwardRateInfo.awardRate = 0.04」
+     * @param awardRateVos 奖品概率配置集合：「值示例：AwardRateInfo.awardRate = 0.04」
      */
-    void initRateTuple(Long strategyId, List<AwardRateInfo> awardRateInfos);
+    void initRateTuple(Long strategyId, List<AwardRateVo> awardRateVos);
 
     /**
      * 判断是否数据初始化
