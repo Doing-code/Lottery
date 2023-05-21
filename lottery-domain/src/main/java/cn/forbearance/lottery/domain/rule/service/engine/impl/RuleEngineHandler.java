@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  *
  * @author cristina
  */
-@Service
+@Service("ruleEngineHandle")
 public class RuleEngineHandler extends BaseEngine {
 
     @Resource

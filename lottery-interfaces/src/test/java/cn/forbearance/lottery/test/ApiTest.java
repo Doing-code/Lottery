@@ -1,20 +1,13 @@
 package cn.forbearance.lottery.test;
 
-import cn.forbearance.lottery.application.process.IActivityProcess;
-import cn.forbearance.lottery.application.process.req.DrawProcessReq;
-import cn.forbearance.lottery.application.process.res.DrawProcessResult;
-import cn.forbearance.lottery.domain.rule.model.req.DecisionMatterReq;
-import cn.forbearance.lottery.domain.rule.model.res.EngineResult;
-import cn.forbearance.lottery.domain.rule.service.engine.EngineFilter;
-import cn.forbearance.lottery.domain.strategy.model.req.DrawReq;
 import cn.forbearance.lottery.domain.strategy.service.draw.IDrawExec;
 import cn.forbearance.lottery.infrastructure.dao.IActivityDao;
 import cn.forbearance.lottery.infrastructure.po.Activity;
-import cn.forbearance.lottery.rpc.IActivityBooth;
-import cn.forbearance.lottery.rpc.req.ActivityReq;
-import cn.forbearance.lottery.rpc.res.ActivityRes;
+import cn.forbearance.lottery.rpc.ILotteryActivityBooth;
+import cn.forbearance.lottery.rpc.req.DrawReq;
+import cn.forbearance.lottery.rpc.req.QuantificationDrawReq;
+import cn.forbearance.lottery.rpc.res.DrawRes;
 import com.alibaba.fastjson.JSON;
-import org.apache.dubbo.config.annotation.Reference;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -41,14 +34,6 @@ public class ApiTest {
     @Resource
     private IDrawExec drawExec;
 
-    @Test
-    public void test_drawExec() {
-        drawExec.doDrawExec(new DrawReq("1", 10001L));
-        drawExec.doDrawExec(new DrawReq("2", 10001L));
-        drawExec.doDrawExec(new DrawReq("3", 10001L));
-        drawExec.doDrawExec(new DrawReq("4", 10001L));
-    }
-
 
     @Test
     public void test_insert() {
@@ -71,48 +56,33 @@ public class ApiTest {
         logger.info("测试结果：{}", JSON.toJSONString(activity));
     }
 
-    @Reference(interfaceClass = IActivityBooth.class, url = "dubbo://127.0.0.1:20880")
-    private IActivityBooth activityBooth;
+    @Resource
+    private ILotteryActivityBooth lotteryActivityBooth;
 
     @Test
-    public void test_rpc() {
-        ActivityReq req = new ActivityReq();
-        req.setActivityId(100001L);
-        ActivityRes result = activityBooth.queryActivityById(req);
-        logger.info("测试结果：{}", JSON.toJSONString(result));
+    public void test_doDraw() {
+        DrawReq drawReq = new DrawReq();
+        drawReq.setuId("xiaofuge");
+        drawReq.setActivityId(100001L);
+        DrawRes drawRes = lotteryActivityBooth.doDraw(drawReq);
+        logger.info("请求参数：{}", JSON.toJSONString(drawReq));
+        logger.info("测试结果：{}", JSON.toJSONString(drawRes));
     }
 
-    @Resource
-    private IActivityProcess activityProcess;
-
     @Test
-    public void test_doDrawProcess() {
-        DrawProcessReq req = new DrawProcessReq();
-        req.setuId("fustack");
-        req.setActivityId(100001L);
-        DrawProcessResult drawProcessResult = activityProcess.doDrawProcess(req);
-
-        logger.info("请求入参：{}", JSON.toJSONString(req));
-        logger.info("测试结果：{}", JSON.toJSONString(drawProcessResult));
-    }
-
-    @Resource
-    private EngineFilter engineFilter;
-
-    @Test
-    public void test_process() {
-        DecisionMatterReq req = new DecisionMatterReq();
+    public void test_doQuantificationDraw() {
+        QuantificationDrawReq req = new QuantificationDrawReq();
+        req.setuId("xiaofuge");
         req.setTreeId(2110081902L);
-        req.setUserId("fustack");
         req.setValMap(new HashMap<String, Object>() {{
             put("gender", "man");
-            put("age", "25");
+            put("age", "18");
         }});
-
-        EngineResult res = engineFilter.process(req);
-
+        DrawRes drawRes = lotteryActivityBooth.doQuantificationDraw(req);
         logger.info("请求参数：{}", JSON.toJSONString(req));
-        logger.info("测试结果：{}", JSON.toJSONString(res));
+        logger.info("测试结果：{}", JSON.toJSONString(drawRes));
     }
+
+
 
 }

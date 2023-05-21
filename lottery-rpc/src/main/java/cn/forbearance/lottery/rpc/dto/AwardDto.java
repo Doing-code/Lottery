@@ -1,18 +1,25 @@
-package cn.forbearance.lottery.domain.strategy.model.vo;
+package cn.forbearance.lottery.rpc.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 中奖奖品信息
+ * 奖品信息
  *
  * @author cristina
  */
-public class DrawAwardVo {
+public class AwardDto implements Serializable {
+    private static final long serialVersionUID = -3305443585754600790L;
 
     /**
      * 用户ID
      */
-    private String uId;
+    private String userId;
+
+    /**
+     * 活动ID
+     */
+    private Long activityId;
 
     /**
      * 奖品ID
@@ -48,27 +55,16 @@ public class DrawAwardVo {
      */
     private Date grantDate;
 
-    public DrawAwardVo() {
+    public AwardDto(String userId) {
+        this.userId = userId;
     }
 
-    public DrawAwardVo(String uId, String awardId, Integer awardType, String awardName, String awardContent) {
-        this.uId = uId;
-        this.awardId = awardId;
-        this.awardType = awardType;
-        this.awardName = awardName;
-        this.awardContent = awardContent;
+    public Long getActivityId() {
+        return activityId;
     }
 
-    public String getuId() {
-        return uId;
-    }
-
-    public void setuId(String uId) {
-        this.uId = uId;
-    }
-
-    public DrawAwardVo(String uId) {
-        this.uId = uId;
+    public void setActivityId(Long activityId) {
+        this.activityId = activityId;
     }
 
     public String getAwardId() {
@@ -129,8 +125,10 @@ public class DrawAwardVo {
 
     @Override
     public String toString() {
-        return "DrawAwardVO{" +
-                "awardId='" + awardId + '\'' +
+        return "AwardDTO{" +
+                "userId='" + userId + '\'' +
+                ", activityId=" + activityId +
+                ", awardId='" + awardId + '\'' +
                 ", awardType=" + awardType +
                 ", awardName='" + awardName + '\'' +
                 ", awardContent='" + awardContent + '\'' +
