@@ -170,6 +170,50 @@ Dubbo 中广播模式的配置，在你实际使用的过程中一般都是使�
 
 抽奖项目的规则引擎，是用来个性化推荐的或者精准营销，通过用户的特征，比如用户活跃度等等一些列的特征，使用规则引擎进行过滤，精准推送符合用户画像的活动。【也就是说在用户能力范围的活动】
 
+
+#### 搭建 Kafka 环境
+配置Zookeeper 
+- 启动
+```shell script
+bin/zookeeper-server-start.sh -daemon config/zookeeper.properties
+```
+- 关闭
+```shell script
+bin/zookeeper-server-stop.sh -daemon config/zookeeper.properties
+```
+
+配置Kafka
+- 启动
+```shell script
+bin/kafka-server-start.sh -daemon config/server.properties
+```
+- 关闭
+```shell script
+bin/kafka-server-stop.sh -daemon config/server.properties
+```
+
+Kafka 创建主题
+```shell script
+bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic Hello-Kafka
+```
+
+Kafka 查看主题
+```shell script
+bin/kafka-topics.sh --list --zookeeper localhost:2181
+```
+
+Kafka 发送消息（生产者）
+```shell script
+bin/kafka-console-producer.sh --broker-list localhost:9092 --topic Hello-Kafka
+```
+
+Kafka 监听消息（消费者）
+```shell script
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic Hello-Kafka --from-beginning
+```
+
+
+
 ### 附录
 
 抽奖系统工程采用DDD架构 + Module模块方式搭建，lottery-domain 是专门用于开发领域服务的模块【包括但不限于 抽奖策略，还有活动领域、规则引擎、用户服务等】
