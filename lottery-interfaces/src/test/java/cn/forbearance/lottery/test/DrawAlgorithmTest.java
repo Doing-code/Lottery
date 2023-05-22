@@ -80,27 +80,5 @@ public class DrawAlgorithmTest {
         drawExec.doDrawExec(new DrawReq("八杯水", 10001L));
     }
 
-    @Test
-    public void test_award() {
-        // 执行抽奖
-        DrawResult drawResult = drawExec.doDrawExec(new DrawReq("forbearance", 10001L));
-
-        // 判断抽奖结果
-        Integer drawState = drawResult.getDrawState();
-        if (Constants.DrawState.FAIL.getCode().equals(drawState)) {
-            log.info("未中奖 DrawAwardInfo is null");
-            return;
-        }
-
-        // 封装发奖参数，orderId：2109313442431 为模拟ID，需要在用户参与领奖活动时生成
-        DrawAwardVo drawAwardVo = drawResult.getDrawAwardVo();
-        GoodsReq goodsReq = new GoodsReq(drawResult.getuId(), "2109313442431", drawAwardVo.getAwardId(), drawAwardVo.getAwardName(), drawAwardVo.getAwardContent());
-
-        // 根据 awardType 从抽奖工厂中获取对应的发奖服务
-        IDistributionGoods distributionGoodsService = distributionGoodsFactory.getDistributionGoodsService(drawAwardVo.getAwardType());
-        DistributionRes distributionRes = distributionGoodsService.doDistribution(goodsReq);
-
-        log.info("测试结果：{}", JSON.toJSONString(distributionRes));
-    }
 
 }

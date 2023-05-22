@@ -29,4 +29,17 @@ public interface IUserStrategyExportDao {
     @DbRouter
     UserStrategyExport queryUserStrategyExportByUid(String uId);
 
+    /**
+     * 更新发奖状态
+     * @param userStrategyExport 发奖信息
+     */
+    @DbRouter
+    void updateUserAwardState(UserStrategyExport userStrategyExport);
+
+    /**
+     * 更新发送MQ状态
+     * @param userStrategyExport 发送消息
+     */
+    @DbRouter
+    void updateInvoiceMqState(UserStrategyExport userStrategyExport);
 }

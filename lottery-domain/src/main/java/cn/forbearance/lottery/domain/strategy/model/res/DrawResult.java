@@ -26,8 +26,7 @@ public class DrawResult {
     /**
      * 中奖奖品信息
      */
-    private DrawAwardVo drawAwardVo;
-
+    private DrawAwardVo drawAwardInfo;
 
     public DrawResult() {
     }
@@ -38,11 +37,11 @@ public class DrawResult {
         this.drawState = drawState;
     }
 
-    public DrawResult(String uId, Long strategyId, Integer drawState, DrawAwardVo drawAwardVo) {
+    public DrawResult(String uId, Long strategyId, Integer drawState, DrawAwardVo drawAwardInfo) {
         this.uId = uId;
         this.strategyId = strategyId;
         this.drawState = drawState;
-        this.drawAwardVo = drawAwardVo;
+        this.drawAwardInfo = drawAwardInfo;
     }
 
     public String getuId() {
@@ -69,11 +68,11 @@ public class DrawResult {
         this.drawState = drawState;
     }
 
-    public DrawAwardVo getDrawAwardVo() {
-        return drawAwardVo;
+    public DrawAwardVo getDrawAwardInfo() {
+        return drawAwardInfo;
     }
 
-    public void setDrawAwardVo(DrawAwardVo drawAwardVo) {
-        this.drawAwardVo = drawAwardVo;
+    public void setDrawAwardInfo(DrawAwardVo drawAwardInfo) {
+        this.drawAwardInfo = drawAwardInfo;
     }
 }

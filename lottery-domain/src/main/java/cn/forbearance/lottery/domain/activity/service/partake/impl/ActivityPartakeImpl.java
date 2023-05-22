@@ -136,4 +136,9 @@ public class ActivityPartakeImpl extends BaseActivityPartake {
     protected UserTakeActivityVo queryNoConsumedTakeActivityOrder(Long activityId, String uId) {
         return userTakeActivityRepository.queryNoConsumedTakeActivityOrder(activityId, uId);
     }
+
+    @Override
+    public void updateInvoiceMqState(String uId, Long orderId, Integer mqState) {
+        userTakeActivityRepository.updateInvoiceMqState(uId, orderId, mqState);
+    }
 }

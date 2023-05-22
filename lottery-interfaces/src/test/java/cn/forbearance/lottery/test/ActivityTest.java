@@ -1,5 +1,8 @@
 package cn.forbearance.lottery.test;
 
+import cn.forbearance.lottery.application.process.IActivityProcess;
+import cn.forbearance.lottery.application.process.req.DrawProcessReq;
+import cn.forbearance.lottery.application.process.res.DrawProcessResult;
 import cn.forbearance.lottery.common.Constants;
 import cn.forbearance.lottery.domain.activity.model.aggregates.ActivityConfigRich;
 import cn.forbearance.lottery.domain.activity.model.req.ActivityConfigReq;
@@ -182,6 +185,19 @@ public class ActivityTest {
         PartakeResult res = activityPartake.doPartake(req);
         logger.info("请求参数：{}", JSON.toJSONString(req));
         logger.info("测试结果：{}", JSON.toJSONString(res));
+    }
+
+    @Resource
+    private IActivityProcess activityProcess;
+
+    @Test
+    public void test_doDrawProcess() {
+        DrawProcessReq req = new DrawProcessReq();
+        req.setuId("xiaofuge");
+        req.setActivityId(100001L);
+        DrawProcessResult drawProcessResult = activityProcess.doDrawProcess(req);
+        logger.info("请求入参：{}", JSON.toJSONString(req));
+        logger.info("测试结果：{}", JSON.toJSONString(drawProcessResult));
     }
 
 }

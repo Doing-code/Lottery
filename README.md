@@ -212,7 +212,9 @@ Kafka 监听消息（消费者）
 bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic Hello-Kafka --from-beginning
 ```
 
+#### 使用MQ解耦抽奖发货流程
 
+![](doc/img/发奖流程.png)
 
 ### 附录
 
